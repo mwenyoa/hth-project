@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HthProject</title>
+    <title>Helping the Helpless</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= vite_stylesheet_tag "application", "data-turbo-track": "reload" %>
+    <%= vite_stylesheet_tag "application.css", "data-turbo-track": "reload" %>
     <%= vite_client_tag %>
     <%= vite_typescript_tag 'index.tsx' %>
     <!--
@@ -18,7 +18,7 @@
 
       Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
     -->
-
+    <%= favicon_link_tag 'hthlogo.png' %>
   </head>
 
   <body>
