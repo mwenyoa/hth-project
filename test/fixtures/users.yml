@@ -4,14 +4,26 @@ one:
   firstname: MyString
   lastname: MyString
   email: MyString
-  bio: MyString
-  posts_counter: 1
   password_digest: MyString
+  dob: MyString
+  city: MyString
+  country: MyString
+  nationality: MyString
+  phoneno: MyString
+  occupation: MyString
+  usertype: MyString
+  organization: one
 
 two:
   firstname: MyString
   lastname: MyString
   email: MyString
-  bio: MyString
-  posts_counter: 1
   password_digest: MyString
+  dob: MyString
+  city: MyString
+  country: MyString
+  nationality: MyString
+  phoneno: MyString
+  occupation: MyString
+  usertype: MyString
+  organization: two
