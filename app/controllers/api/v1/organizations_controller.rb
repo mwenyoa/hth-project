@@ -1,4 +1,5 @@
 class Api::V1::OrganizationsController < ApplicationController
+  before_action :set_organization, only: %i[show update destroy]
   def index
     @Organizations = Organization.includes(%i[logo_attachment]).order('created_at DESC')
     if @Organizations
@@ -9,45 +10,45 @@ class Api::V1::OrganizationsController < ApplicationController
   end
 
   def show
-    @Organization = Organization.find(params[:id])
-    if @Organization
-      render json: @Organization, status: 200
+    if @organization
+      render json: @organization, status: 200
     else
-      render json: @Organization.errors.full_messages.to_setence, status: 422
+      render json: { error: @organization.errors.full_messages.to_sentence }, status: 422
     end
   end
 
   def create
-    @Organization = Organization.new(organization_params)
-    if @Organization.save!
-      render json: @Organization, status: 201
+    @organization = Organization.new(organization_params)
+    if @organization.save!
+      render json: @organization, status: 201
     else
-      render json: @Organization.errors.full_messages.to_setence, status: 422
+      render json: { error: @organization.errors.full_messages.to_sentence }, status: 422
     end
   end
 
   def destroy
-    @Organization = Organization.find(params[:id])
-    if @Organization.destroy
-      render json: @Organization, status: 200
+    if @organization.destroy
+      render json: @organization, status: 200
     else
-      render json: @Organization.errors.full_messages.to_setence, status: 422
+      render json: @organization.errors.full_messages.to_sentence, status: 422
     end
   end
 
   def update
-    @Organization = Organization.find(params[:id])
-    if @Organization.update(organization_params)
-      render json: @Organization, status: 200
+    if @organization.update(organization_params)
+      render json: @organization, status: 200
     else
-      render json: @Organization.errors.full_messages.to_setence, status: 422
+      render json: @organization.errors.full_messages.to_sentence, status: 422
     end
   end
 
   private
 
+  def set_organization
+    @organization = Organization.find_by(id: params[:id])
+  end
+
   def organization_params
-    params.require(:organization).permit(:name, :logo, :mission, :vision )
+    params.require(:organization).permit(:name, :logo, :mission, :vision)
   end
 end
-
