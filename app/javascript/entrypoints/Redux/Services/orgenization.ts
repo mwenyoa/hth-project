@@ -15,6 +15,18 @@ import axios from "axios";
     }
 );
 
+export const getOrganizations = createAsyncThunk("Fetch/Organization", async() => {
+    try {
+        const res = await axios.get("/api/v1/organizations");
+        const dt = await res.data;
+        console.log("Data: ", dt);
+        return dt;
+    } catch (e: any) {
+        console.log("Error OBJ: ", e);
+        throw new Error(e.response.data.error)
+    }
+})
+
 export const createOrganization = createAsyncThunk(
     "organization/createOrganization",
     async (orgdata: any) => {

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrganization } from "../Services/orgenization";
+import { createOrganization } from "../../Services/orgenization";
 
 
 
@@ -35,7 +35,6 @@ const organizationSlice = createSlice({
             state.organization = action.payload;
         });
         builder.addCase(createOrganization.rejected, (state, action) => {
-            console.log("Payload Action: ", action)
             state.loading = false;
             state.error = action.error.message;
         });

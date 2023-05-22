@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AppDispatch } from "../../Store";
 import { useDispatch } from "react-redux";
 import { useStyles } from "../../Styles";
-import { Button, Card, Container, TextField } from "@material-ui/core";
+import { Button, Card, Container, Grid, TextField } from "@material-ui/core";
 import { createOrganization } from "../../Redux/Services/orgenization";
 import useSweetAlert from "../../hooks/useSweetAlert";
 
@@ -52,11 +52,6 @@ const CreateOrganization = (props: Props) => {
       orgData.append("organization[mission]", mission);
       orgData.append("organization[logo]", selectedLogo as Blob);
       dispatch(createOrganization(orgData)).then((res: any) => {
-
-        console.log("orgData :", orgData);
-        
-        console.log("res: ", res);
-        
         if (res.payload !== undefined) {
           ShowAlert({
             title: "Success",
@@ -86,8 +81,9 @@ const CreateOrganization = (props: Props) => {
   };
 
   return (
-    <section className={classes.section}>
+    <section className={classes.section_area}>
       <Container>
+        <Grid item className={classes.section}>
         <Card elevation={4} className={classes.form_card}>
           <h1 className={classes.page_title}> Create Organization </h1>
           <form onSubmit={submitHandler} className={classes.form}>
@@ -122,6 +118,7 @@ const CreateOrganization = (props: Props) => {
               <Button type="submit" variant="contained" className={classes.submitBtn}>Create</Button>
           </form>
         </Card>
+        </Grid>
       </Container>
     </section>
   );
