@@ -50,6 +50,6 @@ class Api::V1::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(%i[firstname lastname email password_digest dob city country nationality phoneno
-                                    usertype organization_id picture])
+                                    usertype organization_id ])
   end
 end
