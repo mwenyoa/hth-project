@@ -6,7 +6,7 @@ class Api::V1::HistoriesController < ApplicationController
     if @histories
       render json: @histories, status: 200
     else
-      render json: { error: histories.errors.full_messages_to.sentence }, status: 404
+      render json: { error: histories.errors.full_messages.to_sentence}, status: 404
     end
   end
 
@@ -32,7 +32,7 @@ class Api::V1::HistoriesController < ApplicationController
     if @history.update(histories_params)
       render json: { message: 'history ssuccessfully updated', history: @history }, status: 200
     else
-      render json: { error: @history.errors.full_messages_to.sentence }, status: 422
+      render json: { error: @history.errors.full_messages.to_sentence}, status: 422
     end
   end
 
@@ -60,6 +60,6 @@ class Api::V1::HistoriesController < ApplicationController
   end
 
   def histories_params
-    params.require(:history).permit(%i[event_title event_date link description])
+    params.require(:history).permit(%i[event_title event_date link description organization_id image])
   end
 end
