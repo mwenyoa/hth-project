@@ -74,7 +74,7 @@ const Header = () => {
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link to={"#"} className={classes.dd_link}>
+              <Link to={"/create-workplace"} className={classes.dd_link}>
                 Where We Work
               </Link>
             </MenuItem>
