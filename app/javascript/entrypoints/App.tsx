@@ -9,6 +9,7 @@ import { CircularProgress } from '@material-ui/core'
 const CreateOrganization = lazy(() => import('./components/Authorized/createOrganization'))
 const CreateHistory = lazy(() => import('./components/Authorized/createHistory'))
 const HistoryList = lazy(() => import('./components/history/historylIst'))
+const CreateWorkplace = lazy(() => import('./components/Authorized/createWorkplace'))
 
 
 type Props = {}
@@ -24,6 +25,7 @@ const App = (props: Props) => {
             <Route path="/create-organization" element={<CreateOrganization />} />
             <Route path="/create-history" element={<CreateHistory />} />
             <Route path='/our-history' element={<HistoryList />} />
+            <Route path='/create-workplace' element={<CreateWorkplace />} />
           </Routes>
         </Suspense>
         </main>
