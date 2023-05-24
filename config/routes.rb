@@ -21,6 +21,9 @@ Rails.application.routes.draw do
         get :work_image, on: :member
       end
       resources :donations, only: %i[index create show destroy update]
+      resources :workplaces, only: %i[index create show destroy update] do
+        get :workplace_images, on: :member
+      end
     end
   end
   root 'home#index'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_23_203526) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +121,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_203526) do
     t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
+  create_table "workplaces", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "quicknote"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_workplaces_on_organization_id"
+  end
+
   create_table "works", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -141,5 +151,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_203526) do
   add_foreign_key "objectives", "organizations"
   add_foreign_key "reports", "organizations"
   add_foreign_key "users", "organizations"
+  add_foreign_key "workplaces", "organizations"
   add_foreign_key "works", "organizations"
 end
