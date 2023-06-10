@@ -10,7 +10,7 @@ const useFetchOrganizations = () => {
   );
   useEffect(() => {
         dispatch(getOrganizations());
-  }, []);
+  }, [dispatch, organizations?.length]);
 
   return organizations;
 };
