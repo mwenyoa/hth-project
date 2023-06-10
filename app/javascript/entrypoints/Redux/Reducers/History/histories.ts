@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { postHistory } from '../../Services/history';
-import { getHistories } from '../../Services/history';
-
+import { postHistory,  getHistories, deleteHistory } from '../../Services/history';
 
 interface historyType {
     history: any,
@@ -23,9 +21,11 @@ const historiesReducer = createSlice({
     builder.addCase(postHistory.pending, state => {
         state.isLoading = 'pending'
     })
-    builder.addCase(postHistory.fulfilled, (state, action) => {
+    builder.addCase(postHistory.fulfilled, (state, {payload}: PayloadAction) => {
         state.isLoading = 'succeeded';
-        state.history = action.payload;
+        state.history =  [...state.history as any[], payload ]
+        window.history.pushState(null, '', '/#/our-history')
+        window.location.reload()
     })
     builder.addCase(postHistory.rejected, (state, action) => {
         state.isLoading ='failed';
@@ -37,7 +37,7 @@ const historiesReducer = createSlice({
     )
     builder.addCase(getHistories.fulfilled, (state, {payload}:PayloadAction) => {
         state.isLoading = 'succeeded';
-        state.history ={...state.history as any[], payload }
+        state.history = payload;
     }
     )
     builder.addCase(getHistories.rejected, (state, action) => {
@@ -45,6 +45,18 @@ const historiesReducer = createSlice({
         state.error = action.error.message
     }
     )
+    builder.addCase(deleteHistory.pending, state => {
+        state.isLoading = 'pending';
+    })
+    builder.addCase(deleteHistory.fulfilled, (state, action) => {
+        state.isLoading = 'succeeded';
+        state.history = state.history.filter((hist: any) => hist.id !== action.payload)
+        window.location.reload()
+    })
+    builder.addCase(deleteHistory.rejected, (state, action) => {
+        state.isLoading = 'failed';
+        state.error = action.error.message
+    })
    }
 })
 
