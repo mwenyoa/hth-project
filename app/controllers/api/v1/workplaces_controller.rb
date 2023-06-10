@@ -56,6 +56,6 @@ class Api::V1::WorkplacesController < ApplicationController
   end
 
   def workplace_params
-    params.require(:workplace).permit(%i[name description organization_id quicknote workplace_images])
+    params.require(:workplace).permit(%i[name description organization_id quicknote workplace_images: []])
   end
 end

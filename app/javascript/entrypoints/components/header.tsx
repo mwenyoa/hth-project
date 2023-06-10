@@ -74,7 +74,7 @@ const Header = () => {
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link to={"/create-workplace"} className={classes.dd_link}>
+              <Link to={"/workplace-list"} className={classes.dd_link}>
                 Where We Work
               </Link>
             </MenuItem>
@@ -120,7 +120,9 @@ const Header = () => {
             <MenuItem onClick={handleClose2}>Development</MenuItem>
           </Popover>
 
-          <Button color="inherit">Login</Button>
+         <Button>
+           <Link to="/Login">LogIn</Link>
+         </Button>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,0 +1,6 @@
+<!-- confirmation_email.html.erb -->
+<p>Dear <%= @user.firstname %> <%= @user.lastname %>,</p>
+<p>Thank you for registering on our website. Please click the following link to confirm your email address:</p>
+<p><%= link_to 'Confirm Email', confirmation_url(@user.confirmation_token) %></p>
+<p>Best regards,</p>
+<p>Helping the hepless Team</p>

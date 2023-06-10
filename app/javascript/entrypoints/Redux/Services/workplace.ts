@@ -17,7 +17,6 @@ export const fetchWorkplace = createAsyncThunk(
     try {
       const res: any = await axios.get(`/api/v1/workplaces/${id}`);
         const dt: any = await res.data;
-        console.log("Workplace data", dt);
         return dt;
     } catch (e) {
       throw new Error(e.response.data.error);
@@ -29,12 +28,11 @@ export const updateWorkplace = createAsyncThunk(
   "workplace/updateWorkplace",
   async (workplace: Workplace) => {
     try {
-      const res = await axios.put(
+      const res = await axios.patch(
         `/api/v1/workplaces/${workplace.id}`,
         workplace
       );
       const dt = await res.data;
-      console.log("Workplace data", dt);
       return dt;
     } catch (e) {
       throw new Error(e.response.data.error);
@@ -48,7 +46,6 @@ export const createWorkplace = createAsyncThunk(
     try {
       const res = await axios.post(`/api/v1/workplaces`, workplace);
       const dt = await res.data;
-      console.log("Workplace data", dt);
       return dt;
     } catch (e) {
       throw new Error(e.response.data.error);
@@ -62,7 +59,6 @@ export const deleteWorkplace = createAsyncThunk(
     try {
       const res = await axios.delete(`/api/v1/workplaces/${id}`);
       const dt = await res.data;
-      console.log("Workplace data", dt);
       return dt;
     } catch (e) {
       throw new Error(e.response.data.error);
@@ -76,7 +72,6 @@ export const fetchWorkplaces = createAsyncThunk(
     try {
       const res = await axios.get(`/api/v1/workplaces`);
       const dt = await res.data;
-      console.log("Workplace data", dt);
       return dt;
     } catch (e) {
       throw new Error(e.response.data.error);

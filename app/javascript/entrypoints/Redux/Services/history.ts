@@ -17,10 +17,8 @@ export const postHistory = createAsyncThunk(
         historyData
       );
       const dt = await res.data;
-      console.log("History data ", dt);
       return dt;
     } catch (e) {
-      console.log("History eeror OB: ", e);
       throw new Error(e.response.data.error);
     }
   }
@@ -34,10 +32,8 @@ export const getHistories = createAsyncThunk(
         `/api/v1/organizations/${organization_id}/histories`
       );
       const dt = await res.data;
-      console.log("History data ", dt);
       return dt;
     } catch (e) {
-      console.log("History eeror OB: ", e);
       throw new Error(e.response.data.error);
     }
   }
@@ -51,10 +47,8 @@ export const deleteHistory = createAsyncThunk(
             `/api/v1/organizations/${organization_id}/histories/${history_id}`
             );
             const dt = await res.data;
-            console.log("History data ", dt);
             return dt;
         } catch (e) {
-            console.log("History eeror OB: ", e);
             throw new Error(e.response.data.error);
         }
         }
@@ -68,10 +62,10 @@ export const updateHistory = createAsyncThunk(
             `/api/v1/organizations/${organization_id}/histories/${history_id}/`, historyData
             );
             const dt = await res.data;
-            console.log("History data ", dt);
+            window.history.pushState(null, '', '#/our-history');
+            window.location.reload()
             return dt;
         } catch (e) {
-            console.log("History eeror OB: ", e);
             throw new Error(e.response.data.error);
         }
         }
@@ -85,10 +79,8 @@ export const getHistory = createAsyncThunk(
             `/api/v1/organizations/${organization_id}/histories/${history_id}`
             );
             const dt = await res.data;
-            console.log("History data ", dt);
             return dt;
         } catch (e) {
-            console.log("History eeror OB: ", e);
             throw new Error(e.response.data.error);
         }
         }

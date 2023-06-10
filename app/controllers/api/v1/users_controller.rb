@@ -1,7 +1,9 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: %i[show update destroy]
+  before_action :set_user, only: %i[update destroy]
+  # before_action :require_admin
+
   def index
-    @users = User.includes(%i[picture_attachment]).order('created_at DESC')
+    @users = User.includes(%i[photo_attachment]).order(created_at: :desc)
     if @users
       render json: @users, status: 200
     else
@@ -13,16 +15,7 @@ class Api::V1::UsersController < ApplicationController
     if @user
       render json: @user, status: 200
     else
-      render json: { error: 'user not found' }, status: 404
-    end
-  end
-
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user, status: 201
-    else
-      render json: { error: @user.errors.full_messages.to_sentence }, status: 422
+      render json: { error: 'User not found' }, status: 404
     end
   end
 
@@ -36,7 +29,7 @@ class Api::V1::UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      render json: { message: 'User Deleted Successfully' }, status: 200
+      render json: { message: 'Account Deleted Successfully' }, status: 200
     else
       render json: { error: @user.errors.full_messages.to_sentence }, status: 422
     end
@@ -44,12 +37,15 @@ class Api::V1::UsersController < ApplicationController
 
   private
 
+  def user_params
+    params.require(:user).permit(%i[firstname lastname email password photo])
+  end
+
   def set_user
     @user = User.find_by(id: params[:id])
   end
 
-  def user_params
-    params.require(:user).permit(%i[firstname lastname email password_digest dob city country nationality phoneno
-                                    usertype organization_id ])
+  def require_admin
+    render json: { error: 'Unauthorized Action!' }, status: :unauthorized unless current_user&.is_admin
   end
 end

@@ -4,10 +4,10 @@ one:
   purpose: MyString
   amount: 1
   organization: one
-  user: one
+  participant: one
 
 two:
   purpose: MyString
   amount: 1
   organization: two
-  user: two
+  participant: two

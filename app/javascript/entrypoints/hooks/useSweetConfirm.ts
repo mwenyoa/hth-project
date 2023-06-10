@@ -4,18 +4,18 @@ import Swal, { SweetAlertOptions } from "sweetalert2";
 type Props = {};
 
 interface SwalProps extends SweetAlertOptions {
-  method: () => any;
+  method: (data: any) => any;
+  data,
 }
 
 const MySwal = withReactContent(Swal);
 
 const useSweetConfirm = (props: Props) => {
-  const ShowConfirm = ({ title, text, icon, timer, method }: SwalProps) => {
+  const ShowConfirm = ({ title, text, icon, method, data }: SwalProps) => {
     MySwal.fire({
       title: title,
       text: text,
       icon: icon,
-      timer: timer,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -23,9 +23,10 @@ const useSweetConfirm = (props: Props) => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        method();
-      }
-    });
+        method(data);
+    }
+     
+    })
   };
 
   return {ShowConfirm};
