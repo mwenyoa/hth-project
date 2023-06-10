@@ -14,9 +14,7 @@ import { getHistories } from "../Redux/Services/history";
         (state: RootState) => state.histories
     );
     useEffect(() => {
-        if(history.length === 0){
             dispatch(getHistories(historyProps));
-        }
     }, [dispatch, history.leghth]);
     
     return {history, isLoading};
