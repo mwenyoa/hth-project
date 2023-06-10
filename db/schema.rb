@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_185134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,11 +58,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
     t.string "purpose"
     t.integer "amount"
     t.bigint "organization_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "participant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_donations_on_organization_id"
-    t.index ["user_id"], name: "index_donations_on_user_id"
+    t.index ["participant_id"], name: "index_donations_on_participant_id"
   end
 
   create_table "histories", force: :cascade do |t|
@@ -74,6 +74,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_histories_on_organization_id"
+  end
+
+  create_table "jwt_denylist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
   create_table "objectives", force: :cascade do |t|
@@ -93,6 +99,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "email"
+    t.string "dob"
+    t.string "city"
+    t.string "country"
+    t.string "nationality"
+    t.string "phoneno"
+    t.string "occupation"
+    t.string "usertype"
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_participants_on_organization_id"
+  end
+
   create_table "reports", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -104,21 +127,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.string "email"
-    t.string "password_digest"
-    t.string "dob"
-    t.string "city"
-    t.string "country"
-    t.string "nationality"
-    t.string "phoneno"
-    t.string "occupation"
-    t.string "usertype"
-    t.bigint "organization_id", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_users_on_organization_id"
+    t.string "role", default: "guest"
+    t.string "password_digest"
+    t.string "firstname"
+    t.string "lastname"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "workplaces", force: :cascade do |t|
@@ -146,11 +172,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_224649) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "budgets", "organizations"
   add_foreign_key "donations", "organizations"
-  add_foreign_key "donations", "users"
+  add_foreign_key "donations", "participants"
   add_foreign_key "histories", "organizations"
   add_foreign_key "objectives", "organizations"
+  add_foreign_key "participants", "organizations"
   add_foreign_key "reports", "organizations"
-  add_foreign_key "users", "organizations"
   add_foreign_key "workplaces", "organizations"
   add_foreign_key "works", "organizations"
 end
