@@ -4,7 +4,7 @@ class CreateDonations < ActiveRecord::Migration[7.0]
       t.string :purpose
       t.integer :amount
       t.references :organization, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
+      t.references :participant, null: false, foreign_key: true
 
       t.timestamps
     end

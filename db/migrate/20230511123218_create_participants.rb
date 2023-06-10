@@ -1,10 +1,9 @@
-class CreateUsers < ActiveRecord::Migration[7.0]
+class CreateParticipants < ActiveRecord::Migration[7.0]
   def change
-    create_table :users do |t|
+    create_table :participants do |t|
       t.string :firstname
       t.string :lastname
       t.string :email
-      t.string :password_digest
       t.string :dob
       t.string :city
       t.string :country
