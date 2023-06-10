@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createWorkplace } from "../../Services/workplace";
+import { createWorkplace, fetchWorkplaces } from "../../Services/workplace";
 
-type Workplace = {
+interface Workplace  {
   id: number;
-  workplaceData: {
     name: string;
     description: string;
     organization_id: string;
     quicknote: string;
-  };
+    workplace_images: [
+      {id: number,
+        url: string
+      }
+    ]
 };
 
 type WorkplaceState = {
@@ -39,6 +42,17 @@ const workplaceSlice = createSlice({
             state.status = "failed";
             state.error = action.error.message;
         });
+        builder.addCase(fetchWorkplaces.pending, state => {
+          state.status = 'pending';
+        })
+        builder.addCase(fetchWorkplaces.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.workplace = action.payload;
+        })
+        builder.addCase(fetchWorkplaces.rejected, (state, action) => {
+          state.error = action.error.message;
+          state.status = 'failed';
+        })
         }
 });
 
