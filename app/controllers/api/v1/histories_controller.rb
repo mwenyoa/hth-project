@@ -30,7 +30,7 @@ class Api::V1::HistoriesController < ApplicationController
 
   def update
     if @history.update(histories_params)
-      render json: { message: 'history ssuccessfully updated', history: @history }, status: 200
+      render json:  @history , status: 200
     else
       render json: { error: @history.errors.full_messages.to_sentence}, status: 422
     end
