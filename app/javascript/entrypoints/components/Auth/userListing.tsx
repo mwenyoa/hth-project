@@ -20,6 +20,7 @@ import useSweetDelete from "../../hooks/useSweetDelete";
 import { convertDate } from "../../utils";
 import { PhoneIphone } from "@mui/icons-material";
 import { VerifiedUserOutlined } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -33,8 +34,6 @@ const UserListing = (props: Props) => {
   };
   const { users, isloading } = useFetchUsers(props)
 
-  console.log(" Users Data: ", users);
-  
   return (
     <section className={classes.section_area}>
       {isloading === "pending" ? (
@@ -66,8 +65,8 @@ const UserListing = (props: Props) => {
                         className={classes.user_image}
                       />
                     </Typography>
-                    <Typography>{user.firstname}</Typography>
-                    <Typography>{user.lastname}</Typography>
+                    <Typography><Link to={`/users-list/${user.id}`}>{user.firstname}</Link></Typography>
+                    <Typography><Link to={`/users-list/${user.id}`}>{user.lastname}</Link></Typography>
                     <Typography>{user.email}</Typography>
                     <Typography><span><PhoneIphone /></span><span>{user.phoneno }</span></Typography>
                     <Typography>{convertDate(user.created_at)}</Typography>
