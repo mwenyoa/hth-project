@@ -12,21 +12,20 @@ import { useStyles } from "../../Styles";
 import useFetchAdmins from "../../hooks/useFetchAdmins";
 import NoData from "../nodata";
 import Loading from "../loading";
-import {
-  DeleteOutlineOutlined, VerifiedUserRounded,
-} from "@material-ui/icons";
+import { DeleteOutlineOutlined, VerifiedUserRounded } from "@material-ui/icons";
 import useSweetConfirm from "../../hooks/useSweetConfirm";
 import useSweetDelete from "../../hooks/useSweetDelete";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { convertDate } from "../../utils";
+import { Link } from "react-router-dom";
 
 type Props = {
-  toggler?: boolean
+  toggler?: boolean;
 };
 
 const UserListing = (props: Props) => {
   const classes = useStyles();
-  const {ShowAskDelete} = useSweetDelete(props)
+  const { ShowAskDelete } = useSweetDelete(props);
   const nodata = "No admins to show";
 
   const adminDeleteHandler = (adminid) => {
@@ -41,10 +40,10 @@ const UserListing = (props: Props) => {
         <Container>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <AdminPanelSettingsIcon fontSize="large" />
-                 <Typography variant="h4">List Of System Admins</Typography>
+              <AdminPanelSettingsIcon fontSize="large" />
+              <Typography variant="h4">List Of System Admins</Typography>
             </Grid>
-            {admins.map((admin) => (
+            {admins?.map((admin) => (
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12} key={admin.id}>
                 <Card elevation={2}>
                   <Box
@@ -52,7 +51,7 @@ const UserListing = (props: Props) => {
                       display: "flex",
                       justifyContent: "space-around",
                       alignItems: "center",
-                      fontWeight: 'bold',
+                      fontWeight: "bold",
                       flexFlow: "wrap",
                     }}
                   >
@@ -64,10 +63,29 @@ const UserListing = (props: Props) => {
                         className={classes.user_image}
                       />
                     </Typography>
-                    <Typography>{admin.firstname}</Typography>
-                    <Typography>{admin.lastname}</Typography>
+                    <Typography>
+                      <Link to={`/admins-list/${admin.id}`}>
+                        {admin.firstname}
+                      </Link>
+                    </Typography>
+                    <Typography>
+                      <Link to={`/admins-list/${admin.id}`}>
+                        {admin.lastname}
+                      </Link>
+                    </Typography>
                     <Typography>{admin.email}</Typography>
-                    <Typography>{admin.confirmed_at ?  `${<VerifiedUserRounded /> }${admin.confirmed_at}`: <span><span><VerifiedUserRounded  fontSize="medium"/> </span> <span>Unconfirmed</span></span> }</Typography>
+                    <Typography>
+                      {admin.confirmed_at ? (
+                        `${(<VerifiedUserRounded />)}${admin.confirmed_at}`
+                      ) : (
+                        <span>
+                          <span>
+                            <VerifiedUserRounded fontSize="medium" />{" "}
+                          </span>{" "}
+                          <span>Unconfirmed</span>
+                        </span>
+                      )}
+                    </Typography>
                     <Typography>{convertDate(admin.created_at)}</Typography>
                     <Typography>
                       <Button
