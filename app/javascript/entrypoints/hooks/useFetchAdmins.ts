@@ -9,9 +9,9 @@ const useFetchAdmins = (props: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const { admins, isLoading } = useSelector((state: RootState) => state.admins);
   useEffect(() => {
-    if(admins.length === 0){
-      dispatch(getAdmins(props));
-    }
+      if(admins.length === 0){
+        dispatch(getAdmins())
+      }
   }, [admins.length, dispatch]);
   return {isLoading, admins}
 };
