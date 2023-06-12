@@ -6,7 +6,9 @@ import historySlice from "./Redux/Reducers/History/getHistory";
 import workplaceSlice from "./Redux/Reducers/workplaces/workplace";
 import usersReducer from "./Redux/Reducers/User/usersReducer";
 import userLoginReducer from './Redux/Reducers/User/userLogin';
-import adminsReducer from './Redux/Reducers/User/admin';
+import adminsReducer from './Redux/Reducers/User/admins';
+import adminReducer from './Redux/Reducers/User/admin';
+import userReducer from './Redux/Reducers/User/user'
 
 
 
@@ -18,8 +20,10 @@ const store = configureStore({
     history: historySlice,
     workplace: workplaceSlice,
     users: usersReducer,
-    user: userLoginReducer,
-    admins: adminsReducer
+    user: userReducer,
+    login: userLoginReducer,
+    admins: adminsReducer,
+    admin: adminReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
