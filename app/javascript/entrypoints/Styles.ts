@@ -1,8 +1,7 @@
 import { Backdrop, makeStyles, withWidth } from "@material-ui/core";
 
 
-declare var herobg: any
-console.log("herobg :", herobg)
+declare var herobg: any;
 export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -255,7 +254,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: 0,
     left: 0,
-    backgroundColor: "rgba(0,0,0,0.5)"
+    backgroundColor: "rgba(0,0,0,0.1)"
   },
   // No data 
   no_data_text: {
@@ -452,5 +451,48 @@ export const useStyles = makeStyles((theme) => ({
     height: '100px !important',
     borderRadius: '50%',
     margin: '2% auto'
+  },
+  main: {
+    width: '100%',
+    height: '100%',
+    margin: 0,
+    padding: 0,
+    overflowX: 'hidden',
+    scrollBehavior: 'smooth'
+  },
+  user_detials_image: {
+    margin: '0 auto',
+    borderRadius: '50%',
+    padding: '1%'
+  },
+   
+  details_text: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin: '0 20px', 
+    padding: '2%',
+    flexFlow: 'wrap'
+  },
+  user_card: {
+    position: 'relative',
+    margin: '2% auto',
+    width: '100%'
+  },
+  user_card_below: {
+    position: 'relative',
+    margin: '0 auto',
+    width: '100%'
+  },
+  image_card: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50% !important',
+    position: 'relative',
+    [theme.breakpoints.down('sm')]:{
+      width: '60%',
+      margin: '0 atuo !important'
+    }
   }
 }));
