@@ -5,6 +5,10 @@ type Props = {
   userData?: any;
   user_id?: number;
   porder?: {};
+  participant: {
+    user_id: number;
+    data: {}
+  };
 };
 
 export const createUser = createAsyncThunk(
@@ -22,7 +26,7 @@ export const createUser = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk(
   "Users/Fetch User",
-  async ({ user_id }: Props) => {
+  async (user_id) => {
     try {
       const res = await axios.get(`/api/v1/participants/${user_id}/`);
       const dt = await res.data;
@@ -61,9 +65,12 @@ export const deleteUser = createAsyncThunk(
 
 export const editUser = createAsyncThunk(
   "Users/Update User",
-  async ({ user_id }: Props) => {
+  async ({ participant }: Props) => {
+    console.log("participant Object: ", participant);
+    
     try {
-      const res = await axios.patch(`/api/v1/participants/${user_id}`);
+      const { data, user_id } = participant;
+      const res = await axios.patch(`/api/v1/participants/${user_id}`, data);
       const dt = await res.data;
       return dt;
     } catch (e) {

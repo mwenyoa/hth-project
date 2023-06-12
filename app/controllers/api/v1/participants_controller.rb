@@ -45,7 +45,7 @@ class Api::V1::ParticipantsController < ApplicationController
   private
 
   def set_participant
-    @participant = participant.find_by(id: params[:id])
+    @participant = Participant.find_by(id: params[:id])
   end
 
   def participant_params

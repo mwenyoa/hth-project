@@ -45,8 +45,6 @@ const UpdateHistory = ({ open, handleClose, history }: Props) => {
   const { ShowConfirm } = useSweetConfirm({});
   const { ShowAlert } = useSweetAlert({});
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  console.log("Current History: ", history);
   const [values, setValues] = useState({
     title: history.event_title || "",
     desc: history.description || "",

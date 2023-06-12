@@ -10,10 +10,11 @@ import RegisterAdmin from './components/Auth/registerAdmin'
 import Confirmed from './components/Auth/confirmed'
 import AdminListing from './components/Auth/listAdmin'
 import UserListing from './components/Auth/userListing'
-import AdminWrapper from './components/Auth/AdminWrapper';
-
-
-
+import AdminWrapper from './components/Auth/AdminWrapper'
+import AdminDetails from './components/Auth/adminDetails'
+import { useStyles } from './Styles'
+import Loading from './components/loading'
+import UserDetails from './components/Auth/userDetails';
 
 const CreateOrganization = lazy(() => import('./components/Auth/createOrganization'))
 const CreateHistory = lazy(() => import('./components/Auth/createHistory'))
@@ -22,18 +23,22 @@ const CreateWorkplace = lazy(() => import('./components/Auth/createWorkplace'))
 const WorkplaceList = lazy(() => import('./components/workplace/workplaceList'))
 const RegisterUser = lazy(() => import('./components/Auth/registerUser'))
 
-const Admins = AdminWrapper(AdminListing)
+
+// Admin
+const AdminList = AdminWrapper(AdminListing)
+const AdminDetail = AdminWrapper(AdminDetails)
+const UserDetail = AdminWrapper(UserDetails)
 
 
 type Props = {}
 
 const App = (props: Props) => {
-
+const classes = useStyles()
   return (
       <>
        <Header />
-        <main>
-        <Suspense fallback={<CircularProgress  />}>
+        <main className={classes.main}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route path='/' element={<SplashScreen />} />
             <Route path='/our-history' element={<HistoryList />} />
@@ -46,8 +51,10 @@ const App = (props: Props) => {
             <Route path='/account-confirmation' element={<Confirmed />} />
             <Route path='/register' element={<RegisterAdmin />} />
             <Route path='/Login' element={<Login />} />
-            <Route path='/admins-list' element={<Admins />} />
+            <Route path='/admins-list' element={<AdminList />} />
+             <Route path='/admins-list/:id' element={<AdminDetail />} />
             <Route path='/users-list' element={<UserListing />} />
+            <Route path='/users-list/:id' element={<UserDetail />} />
             <Route path='*' element={<PageNotFound />} />
           </Routes>
         </Suspense>
