@@ -11,7 +11,7 @@ export const createAdmin = createAsyncThunk(
   "Admin/Create",
   async ({ user }: Props) => {
     try {
-      const res = await axios.post(`/users`, user);
+      const res = await axios.post(`users`, user);
       const dt = await res.data;
       return dt;
     } catch (e) {
@@ -22,7 +22,7 @@ export const createAdmin = createAsyncThunk(
 
 export const getAdmin = createAsyncThunk(
   "Admin/Fetch",
-  async ({ id }: Props) => {
+  async (id: number) => {
     try {
       const res = await axios.get(`api/v1/users/${id}`);
       const dt = await res.data;
@@ -35,7 +35,7 @@ export const getAdmin = createAsyncThunk(
 
 export const getAdmins = createAsyncThunk(
   "Admin/Fetch",
-  async (props:Props) => {
+  async () => {
     try {
       const res = await axios.get(`api/v1/users`);
       const dt = await res.data;;
@@ -49,7 +49,6 @@ export const getAdmins = createAsyncThunk(
 export const loginAdmin = createAsyncThunk(
   "Admin/Login",
   async ({ user }: Props) => {
-    console.log("Passed Info: ", user);
     try {
       const res = await axios.post("users/sign_in", user, {
         headers: {
@@ -71,7 +70,7 @@ export const updateAdmin = createAsyncThunk(
   "Admin/Update",
   async ({ id }: Props) => {
     try {
-      const res = await axios.patch(`api/v1users/${id}`, {
+      const res = await axios.patch(`api/v1/users/${id}`, {
         headers: {
           Authorization: `Bearer ${localStore.getUser}`,
         },
@@ -88,7 +87,7 @@ export const deleteAdmin = createAsyncThunk(
   "Admin/Delete",
   async ({ id }: Props) => {
     try {
-      const res = await axios.delete(`users/${id}`, {
+      const res = await axios.delete(`api/v1/users/${id}`, {
         headers: {
           Authorization: `Bearer ${localStore.getUser}`,
         },
