@@ -103,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_185134) do
     t.string "firstname"
     t.string "lastname"
     t.string "email"
-    t.string "dob"
+    t.datetime "dob"
     t.string "city"
     t.string "country"
     t.string "nationality"
